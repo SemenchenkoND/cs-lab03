@@ -1,7 +1,7 @@
 ﻿#include <math.h>
 #include <iostream>
-#include <conio.h>
 #include <vector>
+#include "histogram.h"
 using namespace std;
 
 vector<double> input_numbers(size_t number_count)
@@ -82,7 +82,7 @@ void show_histogram_text(vector <size_t> bins)
 		maxhigth = max_bin;
 	else
 		maxhigth = 76;
-	for (size_t bin : bins)
+	for (double bin : bins)
 	{
 		size_t height = bin;
 		// проверить масштабирование(пересчитать height)
@@ -121,21 +121,18 @@ int main()
 	cerr << "Enter number count: ";
 	cin >> number_count;
 
-	vector<double> numbers(number_count);
 	cerr << "Enter numbers: ";
 	const auto numbers = input_numbers(number_count);
 
 	size_t bin_count;
 	cerr << "Enter bin count: ";
 	cin >> bin_count;
- 
-	//расчет данных
-	double min, max;
-	find_minmax(numbers, min, max);
 
+	//расчет данных
 	const auto bins = make_histogram(numbers, bin_count);
 
-	show_histogram_text(bins);
+	//вывод гистограммы
+	show_histogram_svg(bins);
 
 	return 0;
 }
